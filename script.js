@@ -1,34 +1,40 @@
-//prendo dal documento la form
-const form = document.getElementById('data-insert');
+// Prendo dal documento la form
+const ticketForm = document.getElementById('ticketForm');
+console.log(ticketForm);
 
-// imposto le variabili
+// Imposto le variabili
 const under = 18;
 const over = 65;
 const prezzoBase = 0.21;
 const scontoUnder = 0.2;
 const scontoOver = 0.4;
 
-form.addEventListener('submit', calcolaPrezzo);
+ticketForm.addEventListener('submit', calcolaBiglietto);
 
-function calcolaPrezzo(event)
+// Imposto la funzione di calcolo del biglietto
+function calcolaBiglietto(event)
 {
     event.preventDefault();
+    console.log(event);
     
     const età =document.getElementById('età').value;
-
     const km = document.getElementById('km').value;
 
+    const etàValue = parseInt(età.value);
+    const kmValue = parseInt(km.value);
+
     const prezzo = km * prezzoBase;
+
+    let result;
+
+    if(età<under) 
+        result = prezzo - (prezzo * scontoUnder);
     
-    let res;
+    else if (età> over) 
+        result = prezzo - (prezzo * scontoOver);
+    else 
+        result = prezzo;
 
-    if(età<under)
-        res= prezzo - (prezzo * scontoUnder);
-    else if (età> over)
-        res= prezzo - (prezzo * scontoOver);
-    else
-        res= prezzo;
+    prezzoFinale.innerHTML = result;
 
-    prezzoFinale.innerHTML = res;
 }
-
